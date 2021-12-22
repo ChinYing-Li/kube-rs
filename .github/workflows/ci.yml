@@ -27,8 +27,8 @@ jobs:
       - name: install openssl
         if: matrix.os == 'windows-latest'
         run: |
-          curl -O "http://slproweb.com/download/Win64OpenSSL-1_1_0L.exe"
-          cmd.exe /C 'Win64OpenSSL-1_1_0L.exe /SILENT /VERYSILENT /SP- /DIR="C:\OpenSSL"'
+          curl -O "https://slproweb.com/download/Win64OpenSSL_Light-3_0_1.exe"
+          shell: Win64OpenSSL_Light-3_0_1.exe /DIR="C:\OpenSSL"
         env:
           OPENSSL_LIB_DIR: "/c/OpenSSL/lib"
           OPENSSL_INCLUDE_DIR: "/c/OpenSSL/include"
