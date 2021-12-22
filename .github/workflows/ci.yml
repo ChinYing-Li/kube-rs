@@ -8,7 +8,7 @@ jobs:
       # Prevent GitHub from cancelling all in-progress jobs when a matrix job fails.
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         # TODO: add windows-latest (see #566)
     runs-on: ${{ matrix.os }}
     steps:
@@ -23,6 +23,15 @@ jobs:
       # - https://github.com/rust-lang/cargo/issues/8603
       # - https://github.com/actions/cache/issues/403
       - uses: Swatinem/rust-cache@v1
+
+      - name: install openssl
+        if: matrix.os == 'windows-latest'
+        run: |
+          curl -O "http://slproweb.com/download/Win64OpenSSL-1_1_0L.exe"
+          cmd.exe /C 'Win64OpenSSL-1_1_0L.exe /SILENT /VERYSILENT /SP- /DIR="C:\OpenSSL"'
+          export OPENSSL_LIB_DIR=/c/OpenSSL/lib
+          export OPENSSL_INCLUDE_DIR=/c/OpenSSL/include
+          export OPENSSL_DIR=/c/OpenSSL/bin
 
       # Real CI work starts here
       - name: Build workspace
