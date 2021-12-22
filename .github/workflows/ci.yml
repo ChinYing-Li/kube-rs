@@ -29,9 +29,10 @@ jobs:
         run: |
           curl -O "http://slproweb.com/download/Win64OpenSSL-1_1_0L.exe"
           cmd.exe /C 'Win64OpenSSL-1_1_0L.exe /SILENT /VERYSILENT /SP- /DIR="C:\OpenSSL"'
-          export OPENSSL_LIB_DIR=/c/OpenSSL/lib
-          export OPENSSL_INCLUDE_DIR=/c/OpenSSL/include
-          export OPENSSL_DIR=/c/OpenSSL/bin
+        env:
+          OPENSSL_LIB_DIR: "/c/OpenSSL/lib"
+          OPENSSL_INCLUDE_DIR: "/c/OpenSSL/include"
+          OPENSSL_DIR: "/c/OpenSSL/bin"
 
       # Real CI work starts here
       - name: Build workspace
